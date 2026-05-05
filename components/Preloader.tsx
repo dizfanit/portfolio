@@ -5,25 +5,18 @@ import { useEffect, useState } from "react";
 
 const TARGET_TEXT = "DIZFANIT DESIGN";
 const SCRAMBLE_CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-const SESSION_KEY = "dizfanit-design-preloader-seen";
+const INITIAL_TEXT = TARGET_TEXT.replace(/\S/g, "0");
+const HERO_VIDEO_SRC = "/videos/hero-background.mp4";
 const FRAME_INTERVAL_MS = 45;
 const SCRAMBLE_DURATION_MS = 1850;
 const EXIT_START_MS = 2050;
+const VIDEO_PRELOAD_TIMEOUT_MS = 3500;
+const EXIT_FAILSAFE_MS = EXIT_START_MS + 1000;
 
-function hasSeenPreloader() {
-  try {
-    return window.sessionStorage.getItem(SESSION_KEY) === "true";
-  } catch {
-    return false;
-  }
-}
-
-function markPreloaderSeen() {
-  try {
-    window.sessionStorage.setItem(SESSION_KEY, "true");
-  } catch {
-    // Storage can be unavailable in restricted browser modes.
-  }
+function wait(ms: number) {
+  return new Promise<void>((resolve) => {
+    window.setTimeout(resolve, ms);
+  });
 }
 
 function getRandomChar() {
@@ -47,35 +40,90 @@ function buildScrambleFrame(progress: number) {
     .join("");
 }
 
+function preloadHeroVideo() {
+  return new Promise<void>((resolve) => {
+    const video = document.createElement("video");
+    let isResolved = false;
+    let timeoutId: number | undefined;
+
+    const finish = () => {
+      if (isResolved) {
+        return;
+      }
+
+      isResolved = true;
+      if (timeoutId !== undefined) {
+        window.clearTimeout(timeoutId);
+      }
+      video.removeEventListener("canplay", finish);
+      video.removeEventListener("loadeddata", finish);
+      video.removeEventListener("error", finish);
+      resolve();
+    };
+
+    timeoutId = window.setTimeout(finish, VIDEO_PRELOAD_TIMEOUT_MS);
+
+    video.preload = "auto";
+    video.muted = true;
+    video.playsInline = true;
+    video.addEventListener("canplay", finish);
+    video.addEventListener("loadeddata", finish);
+    video.addEventListener("error", finish);
+
+    try {
+      video.src = HERO_VIDEO_SRC;
+      video.load();
+    } catch {
+      finish();
+    }
+  });
+}
+
 export default function Preloader() {
-  const [isVisible, setIsVisible] = useState(false);
-  const [displayText, setDisplayText] = useState(() => buildScrambleFrame(0));
-  const displayChars = displayText.split("");
+  const [isVisible, setIsVisible] = useState(true);
+  const [displayText, setDisplayText] = useState(INITIAL_TEXT);
+  const [loadingPercent, setLoadingPercent] = useState(0);
 
   useEffect(() => {
-    if (hasSeenPreloader()) {
-      return;
-    }
-
-    setIsVisible(true);
+    let isMounted = true;
+    let hasFinished = false;
+    let failsafeId: number | undefined;
 
     const startedAt = performance.now();
     const frameId = window.setInterval(() => {
       const elapsed = performance.now() - startedAt;
       const progress = Math.min(elapsed / SCRAMBLE_DURATION_MS, 1);
+      const percentProgress = Math.min(elapsed / EXIT_START_MS, 1);
+
       setDisplayText(buildScrambleFrame(progress));
+      setLoadingPercent(Math.min(Math.round(percentProgress * 100), 99));
     }, FRAME_INTERVAL_MS);
 
-    const finishId = window.setTimeout(() => {
+    const finishPreloader = () => {
+      if (!isMounted || hasFinished) {
+        return;
+      }
+
+      hasFinished = true;
       window.clearInterval(frameId);
+      if (failsafeId !== undefined) {
+        window.clearTimeout(failsafeId);
+      }
       setDisplayText(TARGET_TEXT);
-      markPreloaderSeen();
+      setLoadingPercent(100);
       setIsVisible(false);
-    }, EXIT_START_MS);
+    };
+
+    failsafeId = window.setTimeout(finishPreloader, EXIT_FAILSAFE_MS);
+    void preloadHeroVideo().catch(() => undefined);
+    void wait(EXIT_START_MS).then(finishPreloader, finishPreloader);
 
     return () => {
+      isMounted = false;
       window.clearInterval(frameId);
-      window.clearTimeout(finishId);
+      if (failsafeId !== undefined) {
+        window.clearTimeout(failsafeId);
+      }
     };
   }, []);
 
@@ -101,40 +149,24 @@ export default function Preloader() {
           <div className="absolute left-1/2 top-1/2 z-10 w-max max-w-[calc(100vw-32px)] -translate-x-1/2 -translate-y-1/2">
             <motion.p
               aria-label={TARGET_TEXT}
-              className="flex items-center justify-center whitespace-nowrap font-heading text-[22px] font-bold uppercase leading-none tracking-normal text-text-primary drop-shadow-[0_0_18px_rgba(230,226,218,0.38)] min-[420px]:text-[30px] sm:text-[40px]"
+              className="whitespace-nowrap text-center font-heading text-[20px] font-bold uppercase leading-none tracking-[0.1em] text-text-primary drop-shadow-[0_0_18px_rgba(230,226,218,0.38)] min-[420px]:text-[28px] sm:text-[38px] sm:tracking-[0.12em]"
               initial={{ filter: "blur(5px)", opacity: 0.82 }}
               animate={{ filter: "blur(0px)", opacity: 1 }}
               transition={{ duration: 0.42, ease: [0.22, 1, 0.36, 1] }}
             >
-              {displayChars.map((char, index) => (
-                <span
-                  aria-hidden="true"
-                  className={
-                    char === " "
-                      ? "inline-block w-[0.58em]"
-                      : "inline-flex w-[0.86em] justify-center"
-                  }
-                  key={`${index}-${char}`}
-                >
-                  {char === " " ? "\u00a0" : char}
-                </span>
-              ))}
+              {displayText}
             </motion.p>
 
-            <div
-              className="mx-auto mt-4 h-px w-[min(100%,340px)] overflow-hidden bg-text-primary/18"
-              aria-hidden="true"
+            <motion.p
+              className="absolute left-1/2 top-full min-w-[5ch] -translate-x-1/2 text-center font-mono text-[13px] font-semibold leading-none tracking-[0.28em] text-accent-red-bright tabular-nums drop-shadow-[0_0_16px_rgba(209,10,10,0.82)] sm:text-[15px]"
+              aria-live="polite"
+              style={{ marginTop: "clamp(32px, 4vh, 48px)" }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
             >
-              <motion.div
-                className="h-full origin-left bg-accent-red-bright shadow-[0_0_18px_rgba(209,10,10,0.9)]"
-                initial={{ scaleX: 0 }}
-                animate={{ scaleX: 1 }}
-                transition={{
-                  duration: SCRAMBLE_DURATION_MS / 1000,
-                  ease: "linear",
-                }}
-              />
-            </div>
+              {loadingPercent.toString().padStart(3, "0")}%
+            </motion.p>
           </div>
         </motion.div>
       ) : null}

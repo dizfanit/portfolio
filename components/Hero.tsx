@@ -1,12 +1,18 @@
 export default function Hero() {
   return (
     <section className="relative min-h-screen overflow-hidden bg-site-bg text-text-primary">
-      <img
+      <video
         className="absolute inset-0 h-full w-full object-cover object-[90%_center] opacity-95 2xl:object-[78%_center]"
-        src="/magnific__-__44432.png"
-        alt=""
         aria-hidden="true"
-      />
+        autoPlay
+        loop
+        muted
+        playsInline
+        poster="/videos/hero-background-poster.jpg"
+        preload="auto"
+      >
+        <source src="/videos/hero-background.mp4" type="video/mp4" />
+      </video>
 
       <div
         className="absolute inset-0 bg-[linear-gradient(90deg,#050505_0%,rgba(5,5,5,0.9)_26%,rgba(5,5,5,0.5)_50%,rgba(5,5,5,0.08)_78%,rgba(5,5,5,0.42)_100%)]"
