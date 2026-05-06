@@ -51,8 +51,8 @@ export default async function CasePage({ params }: CasePageProps) {
   }
 
   return (
-    <main className="min-h-screen bg-site-bg px-7 py-10 text-text-primary sm:px-10 lg:px-16 xl:px-28">
-      <section className="relative mx-auto max-w-[1180px] overflow-hidden border border-text-primary/15 bg-graphite/45 px-6 py-8 shadow-[inset_0_0_42px_rgba(255,255,255,0.025)] sm:px-9 sm:py-11 lg:px-12">
+    <main className="site-shell min-h-screen bg-site-bg py-10 text-text-primary">
+      <section className="relative w-full overflow-hidden border border-text-primary/15 bg-graphite/45 px-6 py-8 shadow-[inset_0_0_42px_rgba(255,255,255,0.025)] sm:px-9 sm:py-11 lg:px-12">
         <div
           className="absolute inset-0 opacity-[0.045] bg-[repeating-linear-gradient(0deg,rgba(230,226,218,0.7)_0px,rgba(230,226,218,0.7)_1px,transparent_1px,transparent_7px)]"
           aria-hidden="true"
@@ -100,7 +100,7 @@ export default async function CasePage({ params }: CasePageProps) {
         </div>
       </section>
 
-      <section className="mx-auto grid max-w-[1180px] gap-4 py-8 md:grid-cols-2">
+      <section className="grid w-full gap-4 py-8 md:grid-cols-2">
         {caseBlocks.map((block) => (
           <article
             className="min-h-[240px] border border-text-primary/15 bg-graphite/55 p-6 shadow-[inset_0_0_32px_rgba(255,255,255,0.025)] sm:p-8"

@@ -4,8 +4,7 @@ export default function About() {
   return (
     <section
       id="about"
-      className="relative scroll-mt-24 overflow-hidden bg-site-bg py-24 text-text-primary"
-      style={{ paddingInline: "clamp(28px, 5.6vw, 112px)" }}
+      className="site-shell relative scroll-mt-24 overflow-hidden bg-site-bg py-24 text-text-primary"
     >
       <div
         className="absolute inset-0 opacity-[0.05] bg-[repeating-linear-gradient(0deg,rgba(230,226,218,0.65)_0px,rgba(230,226,218,0.65)_1px,transparent_1px,transparent_6px)]"

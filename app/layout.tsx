@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import CustomCursor from "../components/CustomCursor";
+import GridOverlay from "../components/GridOverlay";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -18,6 +19,8 @@ export default function RootLayout({
       <body>
         <CustomCursor />
         {children}
+        <div className="crt-tv-frame" aria-hidden="true" />
+        <GridOverlay />
       </body>
     </html>
   );

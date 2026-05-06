@@ -1,0 +1,32 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 2147482999;
+  opacity: 0.02;
+  pointer-events: none;
+}
+
+.columns {
+  position: absolute;
+  inset: 0 var(--hero-rail-x);
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--hero-grid-gap);
+}
+
+.columns span {
+  min-width: 0;
+  background: rgb(255 255 255);
+}
+
+.rows {
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgb(255 255 255) 0,
+    rgb(255 255 255) 1px,
+    transparent 1px,
+    transparent var(--hero-grid-row)
+  );
+}

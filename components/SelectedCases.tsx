@@ -6,8 +6,7 @@ export default function SelectedCases() {
   return (
     <section
       id="work"
-      className="relative scroll-mt-24 overflow-hidden bg-site-bg py-24 text-text-primary"
-      style={{ paddingInline: "clamp(28px, 5.6vw, 112px)" }}
+      className="site-shell relative scroll-mt-24 overflow-hidden bg-site-bg py-24 text-text-primary"
     >
       <div
         className="absolute inset-0 opacity-[0.045] bg-[repeating-linear-gradient(90deg,rgba(230,226,218,0.72)_0px,rgba(230,226,218,0.72)_1px,transparent_1px,transparent_7px)]"

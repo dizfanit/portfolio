@@ -7,20 +7,19 @@ const navItems = [
 export default function Header() {
   return (
     <header
-      className="fixed left-0 top-0 z-50 w-full bg-transparent"
-      style={{ paddingInline: "clamp(28px, 5.3vw, 108px)" }}
+      className="site-shell fixed left-0 top-0 z-50 w-full bg-transparent"
     >
-      <div className="flex h-24 w-full flex-col items-center justify-center gap-2 text-center sm:h-[118px] sm:flex-row sm:items-center sm:justify-between sm:gap-0">
+      <div className="flex h-24 w-full flex-col items-center justify-center gap-2 text-center md:h-[118px] md:flex-row md:items-center md:justify-between md:gap-0">
         <a
           href="/"
-          className="flex items-center justify-center font-heading text-[20px] font-bold uppercase leading-none tracking-[0.18em] text-text-primary drop-shadow-[0_0_12px_rgba(230,226,218,0.55)] transition-colors duration-200 hover:text-white sm:text-[24px] sm:tracking-[0.2em]"
+          className="flex items-center justify-center font-heading text-[20px] font-bold uppercase leading-none tracking-[0.18em] text-text-primary drop-shadow-[0_0_12px_rgba(230,226,218,0.55)] transition-colors duration-200 hover:text-white md:text-[24px] md:tracking-[0.2em]"
           aria-label="DIZFANIT home"
         >
           DIZFANIT
         </a>
 
         <nav className="w-full sm:w-auto" aria-label="Main navigation">
-          <ul className="hidden items-center justify-center gap-10 text-center font-mono text-sm font-semibold uppercase leading-none tracking-[0.56em] text-text-primary sm:flex">
+          <ul className="hidden items-center justify-center gap-10 text-center font-mono text-sm font-semibold uppercase leading-none tracking-[0.56em] text-text-primary md:flex">
             {navItems.map((item) => (
               <li className="flex items-center gap-10" key={item.href}>
                 <a
@@ -39,7 +38,7 @@ export default function Header() {
             ))}
           </ul>
 
-          <ul className="flex w-full items-center justify-center gap-3 text-center font-mono text-[9px] font-semibold uppercase tracking-[0.24em] text-text-primary sm:hidden">
+          <ul className="flex w-full items-center justify-center gap-3 text-center font-mono text-[9px] font-semibold uppercase tracking-[0.24em] text-text-primary md:hidden">
             {navItems.map((item) => (
               <li key={item.href}>
                 <a href={item.href}>{item.label}</a>

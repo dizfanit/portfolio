@@ -24,8 +24,7 @@ const processSteps = [
 export default function Process() {
   return (
     <section
-      className="relative overflow-hidden bg-site-bg py-24 text-text-primary"
-      style={{ paddingInline: "clamp(28px, 5.6vw, 112px)" }}
+      className="site-shell relative overflow-hidden bg-site-bg py-24 text-text-primary"
     >
       <div
         className="absolute inset-0 opacity-[0.045] bg-[repeating-linear-gradient(90deg,rgba(230,226,218,0.7)_0px,rgba(230,226,218,0.7)_1px,transparent_1px,transparent_8px)]"
