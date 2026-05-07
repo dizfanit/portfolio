@@ -19,19 +19,19 @@ const CLUSTER_CHARS =
   "ABCDEFGHIJKLMNOPQRSTUVWYZ0123456789<>/\\|%-=()[]{}:;";
 const GRID_SIZE = 18;
 const TILE_SIZE = 18;
-const CLUSTER_IDLE_MS = 115;
-const IDLE_FADE_STAGGER_MS = 18;
-const SHRINK_FADE_STAGGER_MS = 8;
-const TRAIL_VISIBLE_MS = 105;
-const TRAIL_FADE_MS = 160;
+const CLUSTER_IDLE_MS = 80;
+const IDLE_FADE_STAGGER_MS = 13;
+const SHRINK_FADE_STAGGER_MS = 6;
+const TRAIL_VISIBLE_MS = 74;
+const TRAIL_FADE_MS = 112;
 const TRAIL_MIN_SPEED = 0.45;
 const MAX_TRAIL_SNAPSHOTS = 1;
 const MIN_TRAIL_CELLS = 3;
 const MAX_TRAIL_CELLS = 8;
 const TRAIL_MAX_ROW_RADIUS = 2;
 const TRAIL_MAX_COL_RADIUS = 3;
-const MIN_CLUSTER_CELLS = 9;
-const MAX_CLUSTER_CELLS = 34;
+const MIN_CLUSTER_CELLS = 7;
+const MAX_CLUSTER_CELLS = 11;
 const MIN_CLUSTER_SPEED = 0.08;
 const MAX_CLUSTER_SPEED = 1.75;
 
@@ -380,18 +380,97 @@ function rotateCell(cell: Cell, rotation: number): Cell {
   return cell;
 }
 
+function getRandomClusterCells(cellCount: number) {
+  const targetCount = clamp(cellCount, MIN_CLUSTER_CELLS, MAX_CLUSTER_CELLS);
+  const cells: Cell[] = [];
+  const usedKeys = new Set<string>();
+  const neighborOffsets: Cell[] = [
+    { col: 1, row: 0 },
+    { col: -1, row: 0 },
+    { col: 0, row: 1 },
+    { col: 0, row: -1 },
+  ];
+
+  addUniqueCell(cells, usedKeys, { col: 0, row: 0 });
+
+  for (
+    let attempts = 0;
+    cells.length < targetCount && attempts < 180;
+    attempts += 1
+  ) {
+    const candidates = cells.flatMap((cell) => {
+      return neighborOffsets.map((offset) => {
+        return {
+          col: cell.col + offset.col,
+          row: cell.row + offset.row,
+        };
+      });
+    });
+    const rankedCandidates = shuffleCells(candidates)
+      .filter((candidate) => {
+        if (usedKeys.has(getCellKey(candidate))) {
+          return false;
+        }
+
+        return Math.abs(candidate.col) <= 2 && Math.abs(candidate.row) <= 2;
+      })
+      .map((candidate) => {
+        const neighborCount = neighborOffsets.filter((offset) => {
+          return usedKeys.has(
+            getCellKey({
+              col: candidate.col + offset.col,
+              row: candidate.row + offset.row,
+            }),
+          );
+        }).length;
+        const centerWeight =
+          5 - Math.abs(candidate.col) - Math.abs(candidate.row);
+
+        return {
+          cell: candidate,
+          score: neighborCount * 8 + centerWeight + Math.random() * 2,
+        };
+      })
+      .sort((a, b) => b.score - a.score);
+    const pickedCell = rankedCandidates[0]?.cell;
+
+    if (pickedCell) {
+      addUniqueCell(cells, usedKeys, pickedCell);
+    }
+  }
+
+  const fallbackCells: Cell[] = [
+    { col: -1, row: 0 },
+    { col: 0, row: 0 },
+    { col: 1, row: 0 },
+    { col: -1, row: 1 },
+    { col: 0, row: 1 },
+    { col: 1, row: 1 },
+    { col: 0, row: -1 },
+    { col: 2, row: 1 },
+    { col: -2, row: 0 },
+    { col: 2, row: 0 },
+    { col: -2, row: 1 },
+  ];
+
+  fallbackCells.forEach((cell) => {
+    if (cells.length < targetCount) {
+      addUniqueCell(cells, usedKeys, cell);
+    }
+  });
+
+  return cells;
+}
+
 function getClusterPattern(
   point: Point,
   previousPoint: Point | null,
   cellCount: number,
 ) {
-  const pattern =
-    CLUSTER_PATTERNS[Math.floor(Math.random() * CLUSTER_PATTERNS.length)] ??
-    CLUSTER_PATTERNS[0];
   const rotation = getMotionRotation(point, previousPoint);
   const mirror = Math.random() > 0.5 ? -1 : 1;
 
-  return pattern.slice(0, cellCount).map((cell) => {
+  return getRandomClusterCells(cellCount).map((cell) => {
     return rotateCell({ col: cell.col * mirror, row: cell.row }, rotation);
   });
 }
@@ -706,7 +785,7 @@ export default function CustomCursor() {
         node.textContent = getRandomClusterChar();
         node.style.transform = `translate3d(${left}px, ${top}px, 0)`;
         node.style.transitionDelay = "0ms";
-        node.style.transitionDuration = "100ms";
+        node.style.transitionDuration = "0ms";
         node.style.zIndex = "2";
         node.style.opacity = "1";
       });
