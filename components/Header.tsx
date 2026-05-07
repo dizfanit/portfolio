@@ -7,13 +7,17 @@ const navItems = [
 export default function Header() {
   return (
     <header
-      className="fixed top-[60px] z-50 bg-transparent"
+      className="fixed z-50 bg-transparent"
       style={{
-        left: "calc(var(--hero-rail-x) + 60px)",
-        right: "calc(var(--hero-rail-x) + 60px)",
+        top: "var(--hero-header-top)",
+        left: "calc(var(--hero-rail-x) + var(--hero-copy-offset))",
+        right: "calc(var(--hero-rail-x) + var(--hero-copy-offset))",
       }}
     >
-      <div className="flex h-24 w-full flex-col items-center justify-center gap-2 text-center md:h-[118px] md:flex-row md:items-center md:justify-between md:gap-0">
+      <div
+        className="flex w-full flex-col items-center justify-center gap-2 text-center md:flex-row md:items-center md:justify-between md:gap-0"
+        style={{ height: "var(--hero-header-height)" }}
+      >
         <a
           href="/"
           className="flex items-center justify-center font-heading text-[20px] font-bold uppercase leading-none tracking-[0.18em] text-text-primary drop-shadow-[0_0_12px_rgba(230,226,218,0.55)] transition-colors duration-200 hover:text-white md:text-[24px] md:tracking-[0.2em]"

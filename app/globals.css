@@ -39,21 +39,36 @@
   --crt-screen-y: clamp(8px, 1vw, 18px);
   --crt-radius-x: clamp(42px, 5.2vw, 94px);
   --crt-radius-y: clamp(30px, 3.8vw, 64px);
-  --hero-rail-x: clamp(48px, 6.2vw, 128px);
-  --hero-grid-row: clamp(64px, 8vh, 72px);
+  --hero-rail-x: clamp(48px, 5vw, 128px);
+  --hero-grid-row: clamp(52px, 5vh, 72px);
   --hero-safe-y: var(--hero-grid-row);
   --hero-guide-inset-x: var(--hero-rail-x);
   --hero-guide-inset-y: var(--hero-safe-y);
-  --hero-grid-gap: clamp(16px, 1.25vw, 24px);
+  --hero-grid-gap: clamp(14px, 1.25vw, 24px);
   --hero-grid-col: calc(
     (100vw - (var(--hero-rail-x) * 2) - (var(--hero-grid-gap) * 11)) / 12
   );
-  --hero-focus-corner-outset: 32px;
-  --hero-focus-grid-offset: 60px;
-  --hero-footer-offset-y: 112px;
-  --hero-footer-side-offset: 60px;
+  --hero-focus-corner-outset: clamp(22px, 1.25vw, 32px);
+  --hero-focus-grid-offset: var(--hero-copy-offset);
+  --hero-footer-offset-y: clamp(82px, 7.8vh, 112px);
+  --hero-footer-side-offset: var(--hero-copy-offset);
   --hero-corner-size: clamp(28px, 2.45vw, 40px);
-  --hero-copy-offset: 60px;
+  --hero-copy-offset: clamp(32px, 2.35vw, 60px);
+  --hero-copy-max: clamp(600px, 38.3vw, 980px);
+  --hero-title-size: clamp(36px, 2.5vw, 64px);
+  --hero-eyebrow-size: clamp(12px, 0.625vw, 16px);
+  --hero-lead-size: clamp(16px, 1vw, 22px);
+  --hero-lead-max: clamp(590px, 37.4vw, 960px);
+  --hero-action-gap: clamp(16px, 1.1vw, 20px);
+  --hero-action-margin-top: clamp(2rem, 5.2vh, 4.5rem);
+  --hero-button-height: clamp(54px, 4.6vh, 66px);
+  --hero-button-primary-width: clamp(220px, 12.5vw, 320px);
+  --hero-button-secondary-width: clamp(200px, 10.95vw, 280px);
+  --hero-button-pad-x: clamp(20px, 1.25vw, 32px);
+  --hero-button-font-size: clamp(14px, 0.84vw, 16px);
+  --hero-header-top: clamp(36px, 4.17vh, 60px);
+  --hero-header-height: clamp(88px, 8.2vh, 118px);
+  --hero-primary-pad-top: clamp(56px, 5.55vh, 80px);
 }
 
 *,
@@ -280,18 +295,56 @@ body {
 
 .hero-primary-grid {
   grid-template-columns: minmax(0, 1fr);
+  padding-top: var(--hero-primary-pad-top);
 }
 
 .hero-copy-cell {
   align-self: center;
   justify-self: start;
   min-width: 0;
-  width: min(1040px, 100%);
+  width: min(calc(var(--hero-copy-max) + var(--hero-copy-offset)), 100%);
 }
 
 .hero-copy-inset {
   margin-left: var(--hero-copy-offset);
   max-width: calc(100% - var(--hero-copy-offset));
+}
+
+.hero-eyebrow {
+  margin-bottom: clamp(1.25rem, 2.25vh, 2rem);
+  font-size: var(--hero-eyebrow-size);
+  letter-spacing: 0.16em;
+}
+
+.hero-title {
+  max-width: var(--hero-copy-max);
+  font-size: var(--hero-title-size);
+}
+
+.hero-lead {
+  max-width: var(--hero-lead-max);
+  margin-top: clamp(1.25rem, 2.5vh, 2.25rem);
+  font-size: var(--hero-lead-size);
+  line-height: 1.45;
+}
+
+.hero-action-row {
+  gap: var(--hero-action-gap);
+  margin-top: var(--hero-action-margin-top);
+}
+
+.hero-cta {
+  min-height: var(--hero-button-height);
+  padding-inline: var(--hero-button-pad-x);
+  font-size: var(--hero-button-font-size);
+}
+
+.hero-cta-primary {
+  min-width: var(--hero-button-primary-width);
+}
+
+.hero-cta-secondary {
+  min-width: var(--hero-button-secondary-width);
 }
 
 .hero-footer-grid {

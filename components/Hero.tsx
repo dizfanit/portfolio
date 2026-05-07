@@ -2,7 +2,7 @@ export default function Hero() {
   return (
     <section className="relative min-h-screen overflow-hidden bg-site-bg text-text-primary">
       <video
-        className="absolute inset-0 h-full w-full object-cover object-[90%_center] opacity-95 2xl:object-[78%_center]"
+        className="absolute inset-0 h-full w-full object-cover object-[88%_center] opacity-95 2xl:object-[78%_center]"
         aria-hidden="true"
         autoPlay
         loop
@@ -63,65 +63,33 @@ export default function Hero() {
       <div
         className="hero-layout-shell relative z-10 flex min-h-screen flex-col justify-between"
       >
-        <div className="hero-primary-grid grid flex-1 items-center pt-24 lg:pt-20 2xl:grid-cols-[minmax(0,0.66fr)_minmax(0,0.34fr)]">
-          <div
-            className="hero-copy-cell"
-            style={{
-              alignSelf: "center",
-              justifySelf: "start",
-              maxWidth: "min(1040px, 100%)",
-              width: "min(1040px, 100%)",
-            }}
-          >
-            <p
-              className="hero-copy-inset mb-8 font-mono text-sm uppercase tracking-[0.16em] text-accent-red-bright md:text-base"
-              style={{
-                marginLeft: "60px",
-                maxWidth: "calc(100% - 60px)",
-              }}
-            >
+        <div className="hero-primary-grid grid flex-1 items-center 2xl:grid-cols-[minmax(0,0.66fr)_minmax(0,0.34fr)]">
+          <div className="hero-copy-cell">
+            <p className="hero-copy-inset hero-eyebrow font-mono uppercase text-accent-red-bright">
               &gt;_ WEB DESIGNER / VISUAL SYSTEMS
             </p>
 
-            <div
-              className="hero-copy-inset"
-              style={{
-                marginLeft: "60px",
-                maxWidth: "calc(100% - 60px)",
-              }}
-            >
-              <h1
-                className="w-full font-heading font-bold leading-[0.98] tracking-[0.01em] text-text-primary drop-shadow-[0_0_18px_rgba(230,226,218,0.3)]"
-                style={{
-                  fontSize: "clamp(34px, min(8.6vw, 6.6vh), 64px)",
-                  maxWidth: "100%",
-                }}
-              >
+            <div className="hero-copy-inset">
+              <h1 className="hero-title w-full font-heading font-bold leading-[0.98] tracking-[0.01em] text-text-primary drop-shadow-[0_0_18px_rgba(230,226,218,0.3)]">
                 Делаю сайты,
                 <br />
-                которые выглядят
+                которые
+                <br />
+                выглядят
                 <br />
                 не&nbsp;как&nbsp;шаблон
               </h1>
 
-              <p
-                className="w-full max-w-[640px] break-words font-subheading text-lg leading-8 tracking-[0.02em] text-text-muted md:max-w-[680px] md:text-[22px] md:leading-[1.45] 2xl:max-w-[900px]"
-                style={{
-                  marginTop: "clamp(1.375rem, 2.6vh, 2.25rem)",
-                }}
-              >
+              <p className="hero-lead w-full break-words font-subheading tracking-[0.02em] text-text-muted">
                 Проектирую визуальный образ бизнеса: сайты, презентации,
                 <br />
                 соцсети&nbsp;и digital-упаковку с&nbsp;акцентом
                 на&nbsp;сильное первое впечатление.
               </p>
 
-              <div
-                className="flex flex-col gap-5 md:flex-row"
-                style={{ marginTop: "clamp(2.75rem, 5.2vh, 4.5rem)" }}
-              >
+              <div className="hero-action-row flex flex-col md:flex-row">
                 <a
-                  className="flex min-h-[66px] w-full items-center justify-between border border-accent-red-bright bg-accent-red-bright/75 px-8 text-base text-white shadow-[0_0_38px_rgba(209,10,10,0.5),inset_0_0_32px_rgba(255,255,255,0.08)] md:w-auto md:min-w-[320px]"
+                  className="hero-cta hero-cta-primary flex w-full items-center justify-between border border-accent-red-bright bg-accent-red-bright/75 text-white shadow-[0_0_38px_rgba(209,10,10,0.5),inset_0_0_32px_rgba(255,255,255,0.08)] md:w-auto"
                   href="#work"
                 >
                   <span>Смотреть работы</span>
@@ -131,7 +99,7 @@ export default function Hero() {
                 </a>
 
                 <a
-                  className="flex min-h-[66px] w-full items-center justify-between border border-text-primary/50 bg-site-bg/25 px-8 text-base text-text-primary backdrop-blur-sm md:w-auto md:min-w-[280px]"
+                  className="hero-cta hero-cta-secondary flex w-full items-center justify-between border border-text-primary/50 bg-site-bg/25 text-text-primary backdrop-blur-sm md:w-auto"
                   href="#contact"
                 >
                   <span>Связаться</span>
