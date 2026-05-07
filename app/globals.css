@@ -59,16 +59,28 @@
   --hero-eyebrow-size: clamp(12px, 0.625vw, 16px);
   --hero-lead-size: clamp(16px, 1vw, 22px);
   --hero-lead-max: clamp(590px, 37.4vw, 960px);
-  --hero-action-gap: 46px;
+  --hero-action-gap: clamp(28px, 2.4vw, 46px);
   --hero-action-margin-top: clamp(2rem, 5.2vh, 4.5rem);
-  --hero-button-height: 80px;
-  --hero-button-primary-width: 358px;
-  --hero-button-secondary-width: 320px;
-  --hero-button-pad-x: 42px;
-  --hero-button-font-size: 22px;
+  --hero-button-height: clamp(64px, 4.17vw, 80px);
+  --hero-button-primary-width: clamp(286px, 18.65vw, 358px);
+  --hero-button-secondary-width: clamp(256px, 16.67vw, 320px);
+  --hero-button-pad-x: clamp(30px, 2.2vw, 42px);
+  --hero-button-font-size: clamp(18px, 1.15vw, 22px);
   --hero-header-top: clamp(36px, 4.17vh, 60px);
   --hero-header-height: clamp(88px, 8.2vh, 118px);
   --hero-primary-pad-top: clamp(56px, 5.55vh, 80px);
+}
+
+@media (min-width: 768px) and (max-height: 820px) {
+  :root {
+    --hero-action-gap: clamp(18px, 2vw, 28px);
+    --hero-action-margin-top: clamp(1.5rem, 4.2vh, 2.25rem);
+    --hero-button-height: clamp(60px, 8.6vh, 66px);
+    --hero-button-primary-width: clamp(244px, 21vw, 286px);
+    --hero-button-secondary-width: clamp(220px, 19vw, 256px);
+    --hero-button-pad-x: clamp(22px, 2.4vw, 30px);
+    --hero-button-font-size: clamp(16px, 1.45vw, 18px);
+  }
 }
 
 *,
@@ -417,7 +429,7 @@ body {
   justify-content: center;
   margin-left: clamp(28px, 2.1vw, 42px);
   font-family: var(--font-subheading);
-  font-size: clamp(25px, 1.55vw, 30px);
+  font-size: clamp(22px, 1.55vw, 30px);
   font-weight: 400;
   line-height: 0.82;
   transform: translateY(-1px);
