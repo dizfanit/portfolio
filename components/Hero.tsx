@@ -89,22 +89,22 @@ export default function Hero() {
 
               <div className="hero-action-row flex flex-col md:flex-row">
                 <a
-                  className="hero-cta hero-cta-primary flex w-full items-center justify-between border border-accent-red-bright bg-accent-red-bright/75 text-white shadow-[0_0_38px_rgba(209,10,10,0.5),inset_0_0_32px_rgba(255,255,255,0.08)] md:w-auto"
+                  className="hero-cta hero-cta-primary relative flex w-full items-center justify-between overflow-hidden md:w-auto"
                   href="#work"
                 >
-                  <span>Смотреть работы</span>
-                  <span className="font-mono text-2xl leading-none" aria-hidden="true">
-                    -&gt;
+                  <span className="hero-cta-label">Смотреть работы</span>
+                  <span className="hero-cta-arrow" aria-hidden="true">
+                    &#8594;
                   </span>
                 </a>
 
                 <a
-                  className="hero-cta hero-cta-secondary flex w-full items-center justify-between border border-text-primary/50 bg-site-bg/25 text-text-primary backdrop-blur-sm md:w-auto"
+                  className="hero-cta hero-cta-secondary relative flex w-full items-center justify-between overflow-hidden md:w-auto"
                   href="#contact"
                 >
-                  <span>Связаться</span>
-                  <span className="font-mono text-2xl leading-none" aria-hidden="true">
-                    -&gt;
+                  <span className="hero-cta-label">Связаться</span>
+                  <span className="hero-cta-arrow" aria-hidden="true">
+                    &#8594;
                   </span>
                 </a>
               </div>
@@ -157,10 +157,12 @@ export default function Hero() {
             <p>UTC +03:00</p>
           </div>
 
-          <div className="hero-footer-rights hidden text-center 2xl:block">
-            <span className="mr-6 inline-block h-px w-40 bg-text-primary/25 align-middle" />
-            © DIZFANIT · ALL RIGHTS RESERVED
-            <span className="ml-6 inline-block h-px w-40 bg-text-primary/25 align-middle" />
+          <div className="hero-footer-rights hidden text-center 2xl:flex">
+            <span className="hero-footer-rule" aria-hidden="true" />
+            <span className="hero-footer-rights-text">
+              © DIZFANIT · ALL RIGHTS RESERVED
+            </span>
+            <span className="hero-footer-rule" aria-hidden="true" />
           </div>
 
           <div className="hero-footer-online flex items-center justify-start gap-4 text-accent-red-bright md:justify-end">
