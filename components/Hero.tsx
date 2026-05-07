@@ -65,14 +65,31 @@ export default function Hero() {
       >
         <div className="hero-primary-grid grid flex-1 items-center pt-24 lg:pt-20 2xl:grid-cols-[minmax(0,0.66fr)_minmax(0,0.34fr)]">
           <div
-            className="hero-copy-cell translate-y-2 lg:translate-y-0 xl:translate-y-10 2xl:translate-y-0"
-            style={{ maxWidth: "min(1040px, 100%)" }}
+            className="hero-copy-cell"
+            style={{
+              alignSelf: "center",
+              justifySelf: "start",
+              maxWidth: "min(1040px, 100%)",
+              width: "min(1040px, 100%)",
+            }}
           >
-            <p className="hero-copy-inset mb-8 font-mono text-sm uppercase tracking-[0.16em] text-accent-red-bright md:text-base">
+            <p
+              className="hero-copy-inset mb-8 font-mono text-sm uppercase tracking-[0.16em] text-accent-red-bright md:text-base"
+              style={{
+                marginLeft: "60px",
+                maxWidth: "calc(100% - 60px)",
+              }}
+            >
               &gt;_ WEB DESIGNER / VISUAL SYSTEMS
             </p>
 
-            <div className="hero-copy-inset">
+            <div
+              className="hero-copy-inset"
+              style={{
+                marginLeft: "60px",
+                maxWidth: "calc(100% - 60px)",
+              }}
+            >
               <h1
                 className="w-full font-heading font-bold leading-[0.98] tracking-[0.01em] text-text-primary drop-shadow-[0_0_18px_rgba(230,226,218,0.3)]"
                 style={{

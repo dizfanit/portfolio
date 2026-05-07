@@ -7,7 +7,11 @@ const navItems = [
 export default function Header() {
   return (
     <header
-      className="site-shell fixed left-0 top-0 z-50 w-full bg-transparent"
+      className="fixed top-[60px] z-50 bg-transparent"
+      style={{
+        left: "calc(var(--hero-rail-x) + 60px)",
+        right: "calc(var(--hero-rail-x) + 60px)",
+      }}
     >
       <div className="flex h-24 w-full flex-col items-center justify-center gap-2 text-center md:h-[118px] md:flex-row md:items-center md:justify-between md:gap-0">
         <a

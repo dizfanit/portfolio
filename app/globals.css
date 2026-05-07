@@ -45,8 +45,15 @@
   --hero-guide-inset-x: var(--hero-rail-x);
   --hero-guide-inset-y: var(--hero-safe-y);
   --hero-grid-gap: clamp(16px, 1.25vw, 24px);
+  --hero-grid-col: calc(
+    (100vw - (var(--hero-rail-x) * 2) - (var(--hero-grid-gap) * 11)) / 12
+  );
+  --hero-focus-corner-outset: 32px;
+  --hero-focus-grid-offset: 60px;
+  --hero-footer-offset-y: 112px;
+  --hero-footer-side-offset: 60px;
   --hero-corner-size: clamp(28px, 2.45vw, 40px);
-  --hero-copy-offset: clamp(20px, 4vw, 60px);
+  --hero-copy-offset: 60px;
 }
 
 *,
@@ -257,12 +264,12 @@ body {
 }
 
 .hero-status-panel {
-  left: 0;
-  top: calc(var(--hero-safe-y) + var(--hero-grid-row));
+  left: calc(((var(--hero-grid-col) + var(--hero-grid-gap)) * -2) + 32px);
+  top: calc(var(--hero-safe-y) + var(--hero-grid-row) + 120px);
 }
 
 .hero-focus-panel {
-  right: 0;
+  right: calc(var(--hero-focus-grid-offset) + var(--hero-focus-corner-outset));
   bottom: calc(var(--hero-grid-row) + 24px);
 }
 
@@ -276,7 +283,10 @@ body {
 }
 
 .hero-copy-cell {
+  align-self: center;
+  justify-self: start;
   min-width: 0;
+  width: min(1040px, 100%);
 }
 
 .hero-copy-inset {
@@ -286,6 +296,15 @@ body {
 
 .hero-footer-grid {
   grid-template-columns: minmax(0, 1fr);
+  padding-bottom: var(--hero-footer-offset-y);
+}
+
+.hero-footer-coordinates {
+  padding-left: var(--hero-footer-side-offset);
+}
+
+.hero-footer-online {
+  padding-right: var(--hero-footer-side-offset);
 }
 
 @media (min-width: 1536px) {
