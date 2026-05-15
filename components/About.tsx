@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 const services = [
   {
     number: "01",
@@ -41,7 +43,22 @@ export default function About() {
         <span className="about-frame-corner about-frame-corner--br" />
       </div>
 
+      <div className="about-side-line" aria-hidden="true" />
+      <div className="about-side-dot" aria-hidden="true" />
+      <div className="about-side-label-left" aria-hidden="true">
+        Profile 02
+      </div>
+      <div className="about-side-label-right" aria-hidden="true">
+        Signal · Grid · Identity
+      </div>
+
       <div className="about-shell">
+        <div className="about-topline" aria-hidden="true">
+          <span>&gt; ABOUT SYSTEM</span>
+          <span>VISUAL PROFILE / DIZFANIT</span>
+          <span>SECTION 02</span>
+        </div>
+
         <div className="about-layout">
           <div className="about-left">
             <p className="about-section-label">// SECTION 02</p>
@@ -76,11 +93,23 @@ export default function About() {
           </div>
 
           <div className="about-right">
-            <div className="about-media" aria-label="DIZFANIT portrait placeholder">
-              <div className="about-avatar" aria-hidden="true">
-                <span className="about-avatar-head" />
-                <span className="about-avatar-body" />
+            <div className="about-media" aria-label="DIZFANIT portrait">
+              <Image
+                className="about-portrait"
+                src="/magnific__-2-zoom-__26478.png"
+                alt="DIZFANIT portrait"
+                fill
+                sizes="(max-width: 1279px) 100vw, 50vw"
+              />
+              <div className="about-media-corners" aria-hidden="true">
+                <span />
+                <span />
+                <span />
+                <span />
               </div>
+              <p className="about-media-caption" aria-hidden="true">
+                ID: DIZFANIT / DESIGN PROFILE
+              </p>
             </div>
 
             <div className="about-approach">
