@@ -135,54 +135,54 @@ body {
 .crt-tv-frame::before {
   border: 1px solid rgb(230 226 218 / 0.055);
   box-shadow:
-    0 0 0 120vmax #000,
+    0 0 0 120vmax rgb(0 0 0 / 0.36),
     0 0 22px rgb(230 226 218 / 0.08),
     inset 0 0 16px rgb(255 255 255 / 0.04),
-    inset 6.5vw 0 7vw rgb(0 0 0 / 0.62),
-    inset -6.5vw 0 7vw rgb(0 0 0 / 0.62),
-    inset 0 0 8vw rgb(0 0 0 / 0.34);
+    inset 6.5vw 0 7vw rgb(0 0 0 / 0.26),
+    inset -6.5vw 0 7vw rgb(0 0 0 / 0.26),
+    inset 0 0 8vw rgb(0 0 0 / 0.14);
   background:
     radial-gradient(
       ellipse 8vw 76vh at -2.4vw 50%,
-      rgb(0 0 0 / 0.92) 0%,
-      rgb(0 0 0 / 0.7) 38%,
-      rgb(0 0 0 / 0.32) 68%,
+      rgb(0 0 0 / 0.34) 0%,
+      rgb(0 0 0 / 0.22) 38%,
+      rgb(0 0 0 / 0.08) 68%,
       transparent 100%
     ),
     radial-gradient(
       ellipse 8vw 76vh at calc(100% + 2.4vw) 50%,
-      rgb(0 0 0 / 0.92) 0%,
-      rgb(0 0 0 / 0.7) 38%,
-      rgb(0 0 0 / 0.32) 68%,
+      rgb(0 0 0 / 0.34) 0%,
+      rgb(0 0 0 / 0.22) 38%,
+      rgb(0 0 0 / 0.08) 68%,
       transparent 100%
     ),
     radial-gradient(
       ellipse 90vw 9vh at 50% -4vh,
-      rgb(0 0 0 / 0.78) 0%,
-      rgb(0 0 0 / 0.34) 48%,
+      rgb(0 0 0 / 0.28) 0%,
+      rgb(0 0 0 / 0.1) 48%,
       transparent 100%
     ),
     radial-gradient(
       ellipse 90vw 9vh at 50% calc(100% + 4vh),
-      rgb(0 0 0 / 0.78) 0%,
-      rgb(0 0 0 / 0.34) 48%,
+      rgb(0 0 0 / 0.28) 0%,
+      rgb(0 0 0 / 0.1) 48%,
       transparent 100%
     ),
     radial-gradient(
       ellipse at center,
       rgb(255 255 255 / 0.028) 0%,
       transparent 45%,
-      rgb(0 0 0 / 0.2) 76%,
-      rgb(0 0 0 / 0.82) 100%
+      rgb(0 0 0 / 0.06) 76%,
+      rgb(0 0 0 / 0.28) 100%
     ),
     linear-gradient(
       90deg,
-      rgb(0 0 0 / 0.54) 0%,
-      rgb(0 0 0 / 0.16) 8%,
+      rgb(0 0 0 / 0.2) 0%,
+      rgb(0 0 0 / 0.04) 8%,
       transparent 18%,
       transparent 82%,
-      rgb(0 0 0 / 0.16) 92%,
-      rgb(0 0 0 / 0.54) 100%
+      rgb(0 0 0 / 0.04) 92%,
+      rgb(0 0 0 / 0.2) 100%
     );
 }
 
