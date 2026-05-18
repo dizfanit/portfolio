@@ -15,7 +15,7 @@ export default function Hero() {
       </video>
 
       <div
-        className="absolute inset-0 bg-[linear-gradient(90deg,rgba(5,5,5,0.78)_0%,rgba(5,5,5,0.62)_26%,rgba(5,5,5,0.28)_50%,rgba(5,5,5,0.03)_78%,rgba(5,5,5,0.18)_100%)]"
+        className="absolute inset-0 bg-[linear-gradient(90deg,#050505_0%,rgba(5,5,5,0.9)_26%,rgba(5,5,5,0.5)_50%,rgba(5,5,5,0.08)_78%,rgba(5,5,5,0.42)_100%)]"
         aria-hidden="true"
       />
       <div

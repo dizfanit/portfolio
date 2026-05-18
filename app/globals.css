@@ -39,8 +39,6 @@
   --crt-screen-y: clamp(8px, 1vw, 18px);
   --crt-radius-x: clamp(42px, 5.2vw, 94px);
   --crt-radius-y: clamp(30px, 3.8vw, 64px);
-  --crt-edge-fade: clamp(130px, 11vw, 280px);
-  --crt-edge-core: clamp(34px, 3vw, 76px);
   --hero-rail-x: clamp(48px, 5vw, 128px);
   --hero-grid-row: clamp(52px, 5vh, 72px);
   --hero-safe-y: var(--hero-grid-row);
@@ -123,32 +121,6 @@ body {
   z-index: 2147483000;
   overflow: hidden;
   pointer-events: none;
-  background:
-    radial-gradient(
-      ellipse var(--crt-edge-fade) 86vh at left 50%,
-      rgb(0 0 0 / 1) 0%,
-      rgb(0 0 0 / 0.88) 30%,
-      rgb(0 0 0 / 0.38) 66%,
-      transparent 100%
-    ),
-    radial-gradient(
-      ellipse var(--crt-edge-fade) 86vh at right 50%,
-      rgb(0 0 0 / 1) 0%,
-      rgb(0 0 0 / 0.88) 30%,
-      rgb(0 0 0 / 0.38) 66%,
-      transparent 100%
-    ),
-    linear-gradient(
-      90deg,
-      rgb(0 0 0 / 0.96) 0,
-      rgb(0 0 0 / 0.86) var(--crt-screen-x),
-      rgb(0 0 0 / 0.48) calc(var(--crt-screen-x) + var(--crt-edge-core)),
-      transparent calc(var(--crt-screen-x) + var(--crt-edge-fade)),
-      transparent calc(100% - var(--crt-screen-x) - var(--crt-edge-fade)),
-      rgb(0 0 0 / 0.48) calc(100% - var(--crt-screen-x) - var(--crt-edge-core)),
-      rgb(0 0 0 / 0.86) calc(100% - var(--crt-screen-x)),
-      rgb(0 0 0 / 0.96) 100%
-    );
 }
 
 .crt-tv-frame::before,
@@ -166,62 +138,51 @@ body {
     0 0 0 120vmax #000,
     0 0 22px rgb(230 226 218 / 0.08),
     inset 0 0 16px rgb(255 255 255 / 0.04),
-    inset 9vw 0 9vw rgb(0 0 0 / 0.72),
-    inset -9vw 0 9vw rgb(0 0 0 / 0.72),
-    inset 0 0 9vw rgb(0 0 0 / 0.42);
+    inset 6.5vw 0 7vw rgb(0 0 0 / 0.62),
+    inset -6.5vw 0 7vw rgb(0 0 0 / 0.62),
+    inset 0 0 8vw rgb(0 0 0 / 0.34);
   background:
-    linear-gradient(
-      90deg,
-      #000 0%,
-      rgb(0 0 0 / 0.92) 2.8%,
-      rgb(0 0 0 / 0.58) 7.5%,
-      transparent 17%,
-      transparent 83%,
-      rgb(0 0 0 / 0.58) 92.5%,
-      rgb(0 0 0 / 0.92) 97.2%,
-      #000 100%
-    ),
     radial-gradient(
-      ellipse 13vw 82vh at -3.2vw 50%,
-      #000 0%,
-      rgb(0 0 0 / 0.84) 36%,
-      rgb(0 0 0 / 0.34) 70%,
+      ellipse 8vw 76vh at -2.4vw 50%,
+      rgb(0 0 0 / 0.92) 0%,
+      rgb(0 0 0 / 0.7) 38%,
+      rgb(0 0 0 / 0.32) 68%,
       transparent 100%
     ),
     radial-gradient(
-      ellipse 13vw 82vh at calc(100% + 3.2vw) 50%,
-      #000 0%,
-      rgb(0 0 0 / 0.84) 36%,
-      rgb(0 0 0 / 0.34) 70%,
+      ellipse 8vw 76vh at calc(100% + 2.4vw) 50%,
+      rgb(0 0 0 / 0.92) 0%,
+      rgb(0 0 0 / 0.7) 38%,
+      rgb(0 0 0 / 0.32) 68%,
       transparent 100%
     ),
     radial-gradient(
       ellipse 90vw 9vh at 50% -4vh,
-      rgb(0 0 0 / 0.62) 0%,
-      rgb(0 0 0 / 0.24) 48%,
+      rgb(0 0 0 / 0.78) 0%,
+      rgb(0 0 0 / 0.34) 48%,
       transparent 100%
     ),
     radial-gradient(
       ellipse 90vw 9vh at 50% calc(100% + 4vh),
-      rgb(0 0 0 / 0.62) 0%,
-      rgb(0 0 0 / 0.24) 48%,
+      rgb(0 0 0 / 0.78) 0%,
+      rgb(0 0 0 / 0.34) 48%,
       transparent 100%
     ),
     radial-gradient(
       ellipse at center,
       rgb(255 255 255 / 0.028) 0%,
       transparent 45%,
-      rgb(0 0 0 / 0.16) 76%,
-      rgb(0 0 0 / 0.66) 100%
+      rgb(0 0 0 / 0.2) 76%,
+      rgb(0 0 0 / 0.82) 100%
     ),
     linear-gradient(
       90deg,
-      rgb(0 0 0 / 0.5) 0%,
-      rgb(0 0 0 / 0.14) 8%,
+      rgb(0 0 0 / 0.54) 0%,
+      rgb(0 0 0 / 0.16) 8%,
       transparent 18%,
       transparent 82%,
-      rgb(0 0 0 / 0.14) 92%,
-      rgb(0 0 0 / 0.5) 100%
+      rgb(0 0 0 / 0.16) 92%,
+      rgb(0 0 0 / 0.54) 100%
     );
 }
 
