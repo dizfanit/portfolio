@@ -1,6 +1,7 @@
 .next
 node_modules
 out
+.edge-*
 
 .env
 .env*

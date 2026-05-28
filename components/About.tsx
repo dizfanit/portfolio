@@ -1,36 +1,5 @@
 import Image from "next/image";
 
-const services = [
-  {
-    number: "01",
-    title: "WEB DESIGN",
-    text: "Создаю сайты и лендинги, которые цепляют и вызывают доверие.",
-  },
-  {
-    number: "02",
-    title: "PRESENTATIONS",
-    text: "Делаю презентации, которые не выглядят как шаблон.",
-  },
-  {
-    number: "03",
-    title: "SOCIAL VISUALS",
-    text: "Оформляю соцсети, делаю креативы и визуальную упаковку брендов.",
-  },
-];
-
-const principles = [
-  {
-    title: "ФОКУС",
-    text: "на результате",
-    iconClass: "about-principle-icon--focus",
-  },
-  {
-    title: "ВНИМАНИЕ",
-    text: "к деталям",
-    iconClass: "about-principle-icon--eye",
-  },
-];
-
 export default function About() {
   return (
     <section id="about" className="about-section site-shell">
@@ -53,12 +22,6 @@ export default function About() {
       </div>
 
       <div className="about-shell">
-        <div className="about-topline" aria-hidden="true">
-          <span>&gt; ABOUT SYSTEM</span>
-          <span>VISUAL PROFILE / DIZFANIT</span>
-          <span>SECTION 02</span>
-        </div>
-
         <div className="about-layout">
           <div className="about-left">
             <p className="about-section-label">// SECTION 02</p>
@@ -80,16 +43,6 @@ export default function About() {
                 дороже, чище и сильнее шаблонных решений.
               </p>
             </div>
-
-            <div className="about-service-grid">
-              {services.map((service) => (
-                <article className="about-service-card" key={service.number}>
-                  <p className="about-service-number">{service.number}</p>
-                  <h3>{service.title}</h3>
-                  <p>{service.text}</p>
-                </article>
-              ))}
-            </div>
           </div>
 
           <div className="about-right">
@@ -110,30 +63,6 @@ export default function About() {
               <p className="about-media-caption" aria-hidden="true">
                 ID: DIZFANIT / DESIGN PROFILE
               </p>
-            </div>
-
-            <div className="about-approach">
-              <p className="about-kicker">&gt; APPROACH</p>
-              <p className="about-approach-copy">
-                Для меня дизайн - это не просто картинка. Это инструмент, который
-                помогает бизнесу выглядеть сильнее, вызывать доверие и увеличивать
-                продажи.
-              </p>
-
-              <div className="about-principles">
-                {principles.map((principle) => (
-                  <div className="about-principle" key={principle.title}>
-                    <span
-                      className={`about-principle-icon ${principle.iconClass}`}
-                      aria-hidden="true"
-                    />
-                    <p>
-                      <strong>{principle.title}</strong>
-                      <span>{principle.text}</span>
-                    </p>
-                  </div>
-                ))}
-              </div>
             </div>
           </div>
         </div>
