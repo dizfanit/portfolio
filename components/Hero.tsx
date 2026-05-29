@@ -1,4 +1,4 @@
-export default function Hero() {
+﻿export default function Hero() {
   return (
     <section className="relative min-h-screen overflow-hidden bg-site-bg text-text-primary">
       <video
@@ -32,32 +32,30 @@ export default function Hero() {
       />
 
       <div
-        className="hero-guide-frame pointer-events-none absolute border border-transparent"
+        className="section-guide-frame hero-guide-frame"
         aria-hidden="true"
       >
-        <span className="hero-corner-x absolute left-0 top-0 h-px bg-text-primary/45" />
-        <span className="hero-corner-y absolute left-0 top-0 w-px bg-text-primary/45" />
-        <span className="hero-corner-x absolute right-0 top-0 h-px bg-text-primary/45" />
-        <span className="hero-corner-y absolute right-0 top-0 w-px bg-text-primary/45" />
-        <span className="hero-corner-x absolute bottom-0 left-0 h-px bg-text-primary/45" />
-        <span className="hero-corner-y absolute bottom-0 left-0 w-px bg-text-primary/45" />
-        <span className="hero-corner-x absolute bottom-0 right-0 h-px bg-text-primary/45" />
-        <span className="hero-corner-y absolute bottom-0 right-0 w-px bg-text-primary/45" />
+        <span className="section-frame-corner section-frame-corner--tl" />
+        <span className="section-frame-corner section-frame-corner--tr" />
+        <span className="section-frame-corner section-frame-corner--bl" />
+        <span className="section-frame-corner section-frame-corner--br" />
       </div>
 
       <div
-        className="hero-side-line absolute hidden w-px bg-[repeating-linear-gradient(to_bottom,rgba(230,226,218,0.45)_0_2px,transparent_2px_8px)] xl:block"
+        className="section-side-rail section-side-rail-left hero-side-rail hidden xl:flex"
         aria-hidden="true"
-      />
-      <div
-        className="hero-side-dot absolute hidden h-2 w-2 bg-accent-red-bright xl:block"
-        aria-hidden="true"
-      />
-      <div className="hero-side-label-left absolute hidden origin-left rotate-90 font-mono text-xs uppercase tracking-[0.44em] text-accent-red-bright xl:block">
-        Terminal 01
+      >
+        <span className="section-side-line" />
+        <span className="section-side-dot" />
+        <span className="section-side-label">Terminal 01</span>
       </div>
-      <div className="hero-side-label-right absolute hidden origin-right rotate-90 font-mono text-xs uppercase tracking-[0.44em] text-accent-red-bright xl:block">
-        Creative · Intentional · Impactful
+      <div
+        className="section-side-rail section-side-rail-right hero-side-rail hidden xl:flex"
+        aria-hidden="true"
+      >
+        <span className="section-side-line" />
+        <span className="section-side-dot" />
+        <span className="section-side-label">Creative 01</span>
       </div>
 
       <div
@@ -141,10 +139,6 @@ export default function Hero() {
               <p>Design systems</p>
               <p>Web experiences</p>
               <p>Brand visuals</p>
-            </div>
-
-            <div className="hero-hud-marker absolute flex h-5 w-5 items-center justify-center">
-              <span className="h-4 w-4 border-2 border-accent-red-bright" />
             </div>
           </div>
         </div>

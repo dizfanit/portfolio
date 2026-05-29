@@ -1,24 +1,32 @@
-import Image from "next/image";
+﻿import Image from "next/image";
 
 export default function About() {
   return (
     <section id="about" className="about-section site-shell">
       <div className="about-bg" aria-hidden="true" />
 
-      <div className="about-frame" aria-hidden="true">
-        <span className="about-frame-corner about-frame-corner--tl" />
-        <span className="about-frame-corner about-frame-corner--tr" />
-        <span className="about-frame-corner about-frame-corner--bl" />
-        <span className="about-frame-corner about-frame-corner--br" />
+      <div className="section-guide-frame about-frame" aria-hidden="true">
+        <span className="section-frame-corner section-frame-corner--tl" />
+        <span className="section-frame-corner section-frame-corner--tr" />
+        <span className="section-frame-corner section-frame-corner--bl" />
+        <span className="section-frame-corner section-frame-corner--br" />
       </div>
 
-      <div className="about-side-line" aria-hidden="true" />
-      <div className="about-side-dot" aria-hidden="true" />
-      <div className="about-side-label-left" aria-hidden="true">
-        Profile 02
+      <div
+        className="section-side-rail section-side-rail-left about-side-rail"
+        aria-hidden="true"
+      >
+        <span className="section-side-line" />
+        <span className="section-side-dot" />
+        <span className="section-side-label">Profile 02</span>
       </div>
-      <div className="about-side-label-right" aria-hidden="true">
-        Signal · Grid · Identity
+      <div
+        className="section-side-rail section-side-rail-right about-side-rail"
+        aria-hidden="true"
+      >
+        <span className="section-side-line" />
+        <span className="section-side-dot" />
+        <span className="section-side-label">Signal 02</span>
       </div>
 
       <div className="about-shell">

@@ -21,17 +21,21 @@ described in `.agent/PLANS.md`) from design to implementation.
 
 ## Design System
 
-- Before creating or changing sections, cards, pages, or typography, read
-  `docs/design-system.md`.
-- The approved typography scale lives there. Do not introduce one-off text
-  sizes with raw `text-[...]`, `font-size`, or ad hoc `rem` values unless the
-  user explicitly asks to extend the design system.
+- The active design system lives in `app/globals.css`: CSS variables, section
+  classes, typography sizing, site grid, responsive rules, and visual tokens.
+- Before creating or changing sections, cards, pages, or typography, inspect the
+  relevant `app/globals.css` tokens/classes and the component being changed.
+- Do not introduce one-off text sizes with raw `text-[...]`, `font-size`, or ad
+  hoc `rem` values unless the user explicitly asks to extend the design system.
 - Keep hero, section headings, cards, lead text, body text, meta labels, and
-  mobile/wide-desktop scaling mapped to the documented tokens.
-- New sections and blocks must align to the documented site grid in
-  `docs/design-system.md`: `.site-shell`, `--hero-rail-x`,
-  `--hero-grid-gap`, `--hero-grid-col`, `--hero-grid-row`, and the 12-column
-  desktop grid. Do not invent a separate grid unless the user asks for it.
+  mobile/wide-desktop scaling mapped to existing tokens in `app/globals.css`.
+- New sections and blocks must align to the existing site grid:
+  `.site-shell`, `--hero-rail-x`, `--hero-grid-gap`, `--hero-grid-col`,
+  `--hero-grid-row`, and the 12-column desktop grid. Do not invent a separate
+  grid unless the user asks for it.
+- Content areas inside sections must use an inner inset on all sides by
+  default, using `--section-inner-inset`, unless the user explicitly asks for an
+  edge-to-edge composition.
 
 ## Commands
 
@@ -97,8 +101,8 @@ most code changes, use `npm run build` as the main verification step.
 - Before inspecting more than about 5-7 files, pause and explain why the wider
   search is needed.
 - Reuse findings from this file instead of rediscovering the project structure.
-- For visual/typography work, read `docs/design-system.md` and then inspect only
-  the component/CSS ranges that are being changed.
+- For visual/typography work, inspect only the relevant `app/globals.css`
+  tokens/classes and the component/CSS ranges that are being changed.
 
 ## Workspace Hygiene
 
