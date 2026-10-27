@@ -1,17 +1,17 @@
 const navItems = [
-  { label: "WORK", href: "#work" },
-  { label: "ABOUT", href: "#about" },
-  { label: "CONTACT", href: "#contact" },
+  { label: "ОБО МНЕ", href: "#about" },
+  { label: "РАБОТЫ", href: "#work" },
+  { label: "КОНТАКТЫ", href: "#contact" },
 ];
 
-export default function Header() {
+export default function Header({ casePage = false }: { casePage?: boolean }) {
   return (
     <header
-      className="pointer-events-none fixed z-50 bg-transparent before:fixed before:inset-x-0 before:top-0 before:-z-10 before:h-[calc(var(--hero-header-top)+var(--hero-header-height)+18px)] before:bg-[linear-gradient(180deg,rgba(5,5,5,0.78)_0%,rgba(5,5,5,0.44)_42%,rgba(5,5,5,0.16)_72%,rgba(5,5,5,0)_100%)] before:content-['']"
+      className={`${casePage ? "" : "hero-home-header "}site-header pointer-events-none fixed z-50 bg-transparent before:fixed before:inset-x-0 before:top-0 before:-z-10 before:h-[calc(var(--hero-header-top)+var(--hero-header-height)+18px)] before:bg-[linear-gradient(180deg,rgba(5,5,5,0.78)_0%,rgba(5,5,5,0.44)_42%,rgba(5,5,5,0.16)_72%,rgba(5,5,5,0)_100%)] before:content-['']`}
       style={{
         top: "var(--hero-header-top)",
-        left: "calc(var(--hero-rail-x) + var(--hero-copy-offset))",
-        right: "calc(var(--hero-rail-x) + var(--hero-copy-offset))",
+        left: "calc(var(--hero-rail-x) + var(--hero-header-inset, var(--hero-copy-offset)))",
+        right: "calc(var(--hero-rail-x) + var(--hero-header-inset, var(--hero-copy-offset)))",
       }}
     >
       <div
@@ -20,19 +20,19 @@ export default function Header() {
       >
         <a
           href="/"
-          className="flex items-center justify-center font-heading text-[20px] font-bold uppercase leading-none tracking-[0.18em] text-text-primary drop-shadow-[0_0_12px_rgba(230,226,218,0.55)] transition-colors duration-200 hover:text-white md:text-[24px] md:tracking-[0.2em]"
-          aria-label="DIZFANIT home"
+          className="site-header-logo flex items-center justify-center font-heading text-[20px] font-bold uppercase leading-none tracking-[0.18em] text-text-primary transition-colors duration-200 hover:text-white md:text-[24px] md:tracking-[0.2em]"
+          aria-label="DIZFANIT — на главную"
         >
           DIZFANIT
         </a>
 
-        <nav className="w-full sm:w-auto" aria-label="Main navigation">
+        <nav className="w-full sm:w-auto" aria-label="Основная навигация">
           <ul className="hidden items-center justify-center gap-10 text-center font-mono text-sm font-semibold uppercase leading-none tracking-[0.56em] text-text-primary md:flex">
             {navItems.map((item) => (
               <li className="flex items-center gap-10" key={item.href}>
                 <a
-                  href={item.href}
-                  className="transition-colors duration-200 hover:text-accent-red-bright"
+                  href={casePage ? `/${item.href}` : item.href}
+                  className="site-header-nav-link transition-colors duration-200"
                 >
                   {item.label}
                 </a>
@@ -46,10 +46,10 @@ export default function Header() {
             ))}
           </ul>
 
-          <ul className="flex w-full items-center justify-center gap-3 text-center font-mono text-[9px] font-semibold uppercase tracking-[0.24em] text-text-primary md:hidden">
+          <ul className="flex w-full items-center justify-center gap-5 text-center font-mono text-[9px] font-semibold uppercase tracking-[0.24em] text-text-primary md:hidden">
             {navItems.map((item) => (
               <li key={item.href}>
-                <a href={item.href}>{item.label}</a>
+                <a className="site-header-nav-link transition-colors duration-200" href={casePage ? `/${item.href}` : item.href}>{item.label}</a>
               </li>
             ))}
           </ul>

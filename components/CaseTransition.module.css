@@ -1,0 +1,39 @@
+.overlay {
+  --pixel-color: var(--accent-red-bright);
+  position: fixed;
+  inset: 0;
+  z-index: 10001;
+  width: 100%;
+  height: 100%;
+  touch-action: none;
+  font-family: var(--font-mono, ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace);
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.native .overlay { view-transition-name: case-pixels; }
+.native:global(::view-transition) { pointer-events: none; }
+
+/* The browser's built-in root name must not be renamed by CSS Modules. */
+.native:global(::view-transition-group(root)),
+.native::view-transition-group(case-pixels) {
+  animation: none;
+}
+
+.native:global(::view-transition-image-pair(root)),
+.native::view-transition-image-pair(case-pixels) {
+  isolation: auto;
+}
+
+.native:global(::view-transition-old(root)),
+.native:global(::view-transition-new(root)),
+.native::view-transition-new(case-pixels) {
+  animation: none;
+  mix-blend-mode: normal;
+  opacity: 1;
+}
+
+.native:global(::view-transition-new(root)) { z-index: 1; }
+.native:global(::view-transition-old(root)) { z-index: 2; }
+.native::view-transition-group(case-pixels) { z-index: 3; }
+.native::view-transition-old(case-pixels) { display: none; }

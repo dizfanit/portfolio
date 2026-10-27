@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import CustomCursor from "../components/CustomCursor";
 import GridOverlay from "../components/GridOverlay";
+import CaseTransitionProvider from "../components/CaseTransition";
 import "./globals.css";
 
 const ENABLE_TV_EFFECT = false;
@@ -17,10 +18,10 @@ export default function RootLayout({
   children: ReactNode;
 }>) {
   return (
-    <html lang="ru">
+    <html lang="ru" data-scroll-behavior="smooth">
       <body>
         <CustomCursor />
-        {children}
+        <CaseTransitionProvider>{children}</CaseTransitionProvider>
         {ENABLE_TV_EFFECT ? (
           <div className="crt-tv-frame" aria-hidden="true" />
         ) : null}

@@ -1,8 +1,8 @@
 ﻿export default function Hero() {
   return (
-    <section className="relative min-h-screen overflow-hidden bg-site-bg text-text-primary">
+    <section className="hero-section relative overflow-hidden bg-site-bg text-text-primary">
       <video
-        className="absolute inset-0 h-full w-full object-cover object-[88%_center] opacity-95 2xl:object-[78%_center]"
+        className="absolute inset-0 h-full w-full object-cover object-[63%_center] opacity-95 md:object-[88%_center] 2xl:object-[78%_center]"
         aria-hidden="true"
         autoPlay
         loop
@@ -59,45 +59,34 @@
       </div>
 
       <div
-        className="hero-layout-shell relative z-10 flex min-h-screen flex-col justify-between"
+        className="hero-layout-shell relative z-10 flex flex-col justify-between"
       >
-        <div className="hero-primary-grid grid flex-1 items-center 2xl:grid-cols-[minmax(0,0.66fr)_minmax(0,0.34fr)]">
+        <div className="hero-primary-grid grid flex-1 items-center xl:grid-cols-[minmax(0,0.66fr)_minmax(0,0.34fr)]">
           <div className="hero-copy-cell">
             <p className="hero-copy-inset hero-eyebrow font-mono uppercase text-accent-red-bright">
-              &gt;_ WEB DESIGNER / VISUAL SYSTEMS
+              &gt;_ ВЕБ-ДИЗАЙНЕР / ВИЗУАЛЬНЫЕ СИСТЕМЫ
             </p>
 
             <div className="hero-copy-inset">
-              <h1 className="hero-title w-full font-heading font-bold leading-[0.98] tracking-[0.01em] text-text-primary drop-shadow-[0_0_18px_rgba(230,226,218,0.3)]">
+              <h1 aria-label="Делаю сайты, которые выглядят не как шаблон" className="hero-title w-full font-heading font-bold leading-[0.98] tracking-[0.01em] text-text-primary drop-shadow-[0_0_18px_rgba(230,226,218,0.3)]">
                 Делаю сайты,
-                <br />
+                <br className="hero-title-break" />{" "}
                 которые
-                <br />
+                <br className="hero-title-break" />{" "}
                 выглядят
-                <br />
-                не&nbsp;как&nbsp;шаблон
+                <br className="hero-title-break" />{" "}
+                не как шаблон
               </h1>
 
               <p className="hero-lead w-full break-words font-subheading tracking-[0.02em] text-text-muted">
                 Проектирую визуальный образ бизнеса: сайты, презентации,
-                <br />
-                соцсети&nbsp;и digital-упаковку с&nbsp;акцентом
-                на&nbsp;сильное первое впечатление.
+                <br className="hero-lead-break" />{" "}
+                {"соцсети и\u00A0digital-упаковку с\u00A0акцентом на\u00A0сильное первое\u00A0впечатление."}
               </p>
 
               <div className="hero-action-row flex flex-col md:flex-row">
                 <a
                   className="hero-cta hero-cta-primary relative flex w-full items-center justify-between overflow-hidden md:w-auto"
-                  href="#work"
-                >
-                  <span className="hero-cta-label">Смотреть работы</span>
-                  <span className="hero-cta-arrow" aria-hidden="true">
-                    &#8594;
-                  </span>
-                </a>
-
-                <a
-                  className="hero-cta hero-cta-secondary relative flex w-full items-center justify-between overflow-hidden md:w-auto"
                   href="#contact"
                 >
                   <span className="hero-cta-label">Связаться</span>
@@ -109,7 +98,7 @@
             </div>
           </div>
 
-          <div className="hero-hud-cell relative hidden h-full min-h-[560px] 2xl:block">
+          <div className="hero-hud-cell relative hidden h-full xl:block">
             <div className="hero-status-panel absolute font-mono text-[13px] uppercase leading-7 tracking-[0.08em] text-text-muted">
               <span
                 className="pointer-events-none absolute -left-8 -top-8 h-px w-40 bg-text-primary/45"
@@ -120,10 +109,10 @@
                 aria-hidden="true"
               />
               <p>
-                STATUS: <span className="text-accent-red-bright">OPEN</span>
+                STATUS: <span className="text-accent-red-bright">ОТКРЫТ</span>
               </p>
-              <p>AVAILABLE FOR</p>
-              <p>SELECTED PROJECTS</p>
+              <p>ДЛЯ НОВЫХ</p>
+              <p>ПРОЕКТОВ</p>
             </div>
 
             <div className="hero-focus-panel absolute font-mono text-sm uppercase leading-7 tracking-[0.08em] text-text-muted">
@@ -135,23 +124,23 @@
               <span className="pointer-events-none absolute -bottom-8 -left-8 h-10 w-px bg-text-primary/50" />
               <span className="pointer-events-none absolute -bottom-8 -right-8 h-px w-10 bg-text-primary/50" />
               <span className="pointer-events-none absolute -bottom-8 -right-8 h-10 w-px bg-text-primary/50" />
-              <p className="mb-1 text-accent-red-bright">Focus</p>
-              <p>Design systems</p>
-              <p>Web experiences</p>
-              <p>Brand visuals</p>
+              <p className="mb-1 text-accent-red-bright">Фокус</p>
+              <p>Дизайн-системы</p>
+              <p>Веб-проекты</p>
+              <p>Бренд-графика</p>
             </div>
           </div>
         </div>
 
-        <div className="hero-footer-grid grid gap-6 pb-6 font-mono text-xs uppercase tracking-[0.12em] text-text-muted 2xl:grid-cols-3 2xl:items-end 2xl:pb-10">
-          <div className="hero-footer-coordinates hidden leading-6 2xl:block">
+        <div className="hero-footer-grid grid gap-6 pb-6 font-mono text-xs uppercase tracking-[0.12em] text-text-muted xl:grid-cols-3 xl:items-end xl:pb-10">
+          <div className="hero-footer-coordinates hidden leading-6 xl:block">
             <p className="text-accent-red-bright">&gt; Coordinates</p>
             <p>55.7558° N, 37.6173° E</p>
             <p className="mt-2 text-accent-red-bright">&gt; Timezone</p>
             <p>UTC +03:00</p>
           </div>
 
-          <div className="hero-footer-rights hidden text-center 2xl:flex">
+          <div className="hero-footer-rights hidden text-center xl:flex">
             <span className="hero-footer-rule" aria-hidden="true" />
             <span className="hero-footer-rights-text">
               © DIZFANIT · ALL RIGHTS RESERVED

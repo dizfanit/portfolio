@@ -6,16 +6,23 @@ import Preloader from "../components/Preloader";
 import Process from "../components/Process";
 import SelectedCases from "../components/SelectedCases";
 import Services from "../components/Services";
+import SmoothSectionScroll from "../components/SmoothSectionScroll";
 
-export default function Home() {
+import { publishedCases } from "../lib/content-store";
+
+export const dynamic = "force-dynamic";
+
+export default async function Home() {
+  const extraCases = (await publishedCases()).map(({slug,number,title,type,year,industry,description,category,favorite,cover,singleWork}) => ({slug,number,title,type,year,industry,description,category,favorite,cover,singleWork}));
   return (
     <>
       <Preloader />
       <Header />
-      <main>
+      <SmoothSectionScroll />
+      <main className="page-snap">
         <Hero />
         <About />
-        <SelectedCases />
+        <SelectedCases extraCases={extraCases} />
         <Services />
         <Process />
         <Contact />

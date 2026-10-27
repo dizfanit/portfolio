@@ -1,0 +1,195 @@
+.section {
+  position: relative;
+  min-height: 100svh;
+  overflow: hidden;
+  isolation: isolate;
+  color: var(--text-primary);
+  background: var(--site-bg);
+  scroll-margin-top: 0;
+}
+
+.background { position: absolute; z-index: -2; inset: 0; pointer-events: none; }
+.background::after {
+  position: absolute;
+  inset: 0;
+  content: "";
+  background:
+    linear-gradient(90deg, rgb(5 5 5 / 0.2), transparent 52%),
+    linear-gradient(0deg, rgb(5 5 5 / 0.65), transparent 18%, transparent 85%, rgb(5 5 5 / 0.15));
+}
+.image { object-fit: cover; object-position: center; }
+.texture { position: absolute; z-index: -1; inset: 0; pointer-events: none; }
+
+.atmosphere {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  pointer-events: none;
+}
+.redStop { stop-color: var(--accent-red-bright); }
+.lightStop { stop-color: var(--text-primary); }
+.aura {
+  opacity: 0.3;
+  animation: contact-breathe 11s ease-in-out infinite;
+}
+.nodeGlow {
+  opacity: 0.15;
+  animation: contact-node 12s ease-in-out infinite;
+}
+.signal {
+  fill: none;
+  opacity: 0;
+  stroke-linecap: round;
+  stroke-dasharray: 2 102;
+  stroke-dashoffset: 102;
+  animation: contact-signal 14s linear infinite;
+}
+.signalGlow { stroke: var(--accent-red-bright); stroke-width: 8; opacity: 0.35; }
+.signalCore { stroke: var(--text-primary); stroke-width: 1.5; }
+.atmosphere .aura, .atmosphere .nodeGlow, .atmosphere .signal { animation-play-state: paused; }
+.atmosphere[data-active="true"] .aura,
+.atmosphere[data-active="true"] .nodeGlow,
+.atmosphere[data-active="true"] .signal { animation-play-state: running; }
+
+@keyframes contact-breathe {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.85; }
+}
+@keyframes contact-node {
+  0%, 38%, 78%, 100% { opacity: 0.12; }
+  56% { opacity: 0.8; }
+}
+@keyframes contact-signal {
+  0%, 62% { opacity: 0; stroke-dashoffset: 102; }
+  66% { opacity: 0.7; }
+  86% { opacity: 0.7; }
+  92%, 100% { opacity: 0; stroke-dashoffset: 0; }
+}
+
+.layout {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  grid-template-rows: 1fr auto;
+  gap: var(--hero-grid-gap);
+  min-height: 100svh;
+  padding-block: max(22svh, calc(var(--hero-header-top) + var(--hero-header-height) + var(--section-inner-inset))) var(--hero-footer-offset-y);
+}
+.copy { grid-column: 1 / span 5; min-width: 0; padding-left: var(--section-inner-inset); }
+.title {
+  display: grid;
+  width: 100%;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  line-height: 0.98;
+  text-transform: uppercase;
+  text-shadow: 0 0 24px rgb(230 226 218 / 0.22);
+}
+.titleLine { display: inline-flex; align-items: baseline; gap: 0.08em; }
+.links {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--hero-grid-gap);
+  width: min(100%, calc(2 * (var(--hero-button-primary-width) - var(--hero-button-arrow-gap)) + var(--hero-grid-gap)));
+  margin-top: var(--hero-action-margin-top);
+}
+.link {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: calc(var(--hero-grid-gap) * 0.85);
+  min-width: 0;
+  height: var(--hero-button-height);
+  min-height: var(--hero-button-height);
+  padding-inline: var(--hero-button-pad-x);
+  border: 1px solid rgb(230 226 218 / 0.19);
+  background: linear-gradient(135deg, rgb(139 0 0 / 0.12), rgb(5 5 5 / 0.6));
+  color: var(--text-primary);
+  text-decoration: none;
+  transition: border-color 180ms ease, background-color 180ms ease, box-shadow 180ms ease;
+}
+.link::after {
+  position: absolute;
+  right: -1px;
+  bottom: -1px;
+  width: var(--hero-grid-gap);
+  height: var(--hero-grid-gap);
+  border-right: 1px solid rgb(230 226 218 / 0.4);
+  border-bottom: 1px solid rgb(230 226 218 / 0.4);
+  content: "";
+}
+.link:hover, .link:focus-visible {
+  outline: none;
+  border-color: var(--accent-red-bright);
+  background-color: rgb(139 0 0 / 0.35);
+  box-shadow: 0 0 24px rgb(209 10 10 / 0.18);
+}
+.icon { width: var(--hero-button-arrow-size); flex: 0 0 auto; }
+.icon svg { display: block; width: 100%; }
+.linkText { display: grid; gap: 6px; min-width: 0; }
+.linkLabel {
+  font-family: var(--font-subheading);
+  font-size: var(--hero-button-font-size);
+  font-weight: 500;
+  line-height: 1;
+}
+.handle { color: var(--text-muted); line-height: 1.2; }
+.arrow {
+  width: var(--hero-button-arrow-size);
+  flex: 0 0 auto;
+  margin-left: auto;
+  color: var(--accent-red-bright);
+  transition: transform 180ms ease;
+}
+.link:hover .arrow { transform: translateX(4px); }
+
+.footer {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: var(--hero-grid-gap);
+  padding-inline: var(--section-inner-inset);
+}
+.coordinates { display: grid; gap: 8px; }
+.coordinates span { display: block; color: var(--accent-red-bright); }
+.systemFooter { display: flex; align-items: center; gap: var(--hero-grid-gap); }
+.rail { display: flex; }
+
+@media (max-width: 1199px) {
+  .copy { grid-column: 1 / span 7; }
+  .systemFooter { flex-wrap: wrap; justify-content: flex-end; max-width: 65%; }
+}
+@media (max-width: 767px) {
+  .layout {
+    grid-template-rows: auto auto;
+    row-gap: calc(var(--hero-grid-gap) * 2);
+    padding-top: calc(var(--hero-header-top) + var(--hero-header-height) + var(--section-inner-inset));
+    padding-bottom: calc(var(--hero-safe-y) + var(--section-inner-inset));
+  }
+  .copy { grid-column: 1 / -1; margin: 0; }
+  .copy { padding-inline: var(--section-inner-inset); }
+  .links { grid-template-columns: 1fr; }
+  .links { width: 100%; }
+  .link { min-height: var(--hero-button-height); }
+  .title { font-size: var(--hero-title-size); overflow-wrap: anywhere; }
+  .footer { flex-direction: column; align-items: flex-start; }
+  .systemFooter { max-width: 100%; justify-content: flex-start; }
+  .systemFooter p { flex-wrap: wrap; }
+  .rail { display: none; }
+  .image { object-position: 65% center; }
+  .background::after { background: rgb(5 5 5 / 0.72); }
+  /* The mobile image has a different crop; keep only its soft ambient light. */
+  .network { display: none; }
+  .network .nodeGlow, .network .signal { animation: none; }
+  .atmosphere { opacity: 0.45; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .atmosphere .aura { animation: none; opacity: 0.3; }
+  .network { display: none; }
+  .link, .arrow { transition: none; }
+  .link:hover .arrow { transform: none; }
+}

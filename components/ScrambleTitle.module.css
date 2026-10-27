@@ -1,0 +1,45 @@
+.title .trigger {
+  position: relative;
+  display: grid;
+  width: max-content;
+  flex-shrink: 0;
+  transform-origin: left top;
+  border: 0;
+  padding: 0 0 0.08em;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  letter-spacing: inherit;
+  text-shadow: inherit;
+  text-align: left;
+  pointer-events: auto;
+}
+
+.title .reserve {
+  grid-area: 1 / 1;
+  visibility: hidden;
+}
+
+.title .visible {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.08em;
+  white-space: nowrap;
+}
+
+.cursor {
+  display: block;
+  flex: 0 0 0.5em;
+  width: 0.5em;
+  height: 0.12em;
+  background: var(--accent-red-bright);
+  box-shadow: 0 0 10px rgb(209 10 10 / 0.3);
+}
+
+.trigger:focus-visible {
+  outline: 1px solid var(--accent-red-bright);
+  outline-offset: 0.15em;
+}

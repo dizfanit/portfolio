@@ -824,6 +824,11 @@ export default function CustomCursor() {
     }
 
     function handlePointerMove(event: PointerEvent) {
+      if ((event.target as Element | null)?.closest(".work-detail-backdrop")) {
+        hideCursor();
+        return;
+      }
+
       if (event.pointerType && event.pointerType !== "mouse") {
         hideCursor();
         return;
@@ -892,6 +897,7 @@ export default function CustomCursor() {
   return (
     <div
       aria-hidden="true"
+      data-cursor-trail=""
       className="pointer-events-none fixed inset-0 z-[10000] opacity-0 transition-opacity duration-150"
       ref={rootRef}
     >

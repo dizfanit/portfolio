@@ -12,6 +12,9 @@ const SCRAMBLE_DURATION_MS = 1850;
 const EXIT_START_MS = 2050;
 const VIDEO_PRELOAD_TIMEOUT_MS = 3500;
 const EXIT_FAILSAFE_MS = EXIT_START_MS + 1000;
+// Client navigation back from a case keeps the already completed introduction.
+// A full document load resets this flag and retains the original animation.
+let didFinishIntroduction = false;
 
 function wait(ms: number) {
   return new Promise<void>((resolve) => {
@@ -80,11 +83,12 @@ function preloadHeroVideo() {
 }
 
 export default function Preloader() {
-  const [isVisible, setIsVisible] = useState(true);
+  const [isVisible, setIsVisible] = useState(() => !didFinishIntroduction);
   const [displayText, setDisplayText] = useState(INITIAL_TEXT);
   const [loadingPercent, setLoadingPercent] = useState(0);
 
   useEffect(() => {
+    if (didFinishIntroduction) return;
     let isMounted = true;
     let hasFinished = false;
     let failsafeId: number | undefined;
@@ -105,6 +109,7 @@ export default function Preloader() {
       }
 
       hasFinished = true;
+      didFinishIntroduction = true;
       window.clearInterval(frameId);
       if (failsafeId !== undefined) {
         window.clearTimeout(failsafeId);
