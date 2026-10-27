@@ -49,14 +49,15 @@ async function main(){
  const builtins=await (await request('/api/admin/cases')).json();
  check(builtins.length===14 && builtins.every(x=>x.source==='builtin' && x.status==='published'),'all built-in cases editable in catalog');
  let original=builtins.find(x=>x.slug==='project-10');
- check(original.media.length===10 && original.cover.src==='/malepartus-pages/1.png','original images loaded without reupload');
+ check(original.media.length===10 && original.cover.src.startsWith('/published-media/'),'published images loaded without reupload');
+ const initialRevision=original.revision;
  check((await request('/api/admin/cases','POST',{...original,cover:{...original.cover,src:'/fonts/Manrope.ttf'}})).status===400,'untrusted public asset rejected');
  response=await request('/api/admin/cases','POST',{...original,title:'Malepartus — изменён'});check(response.status===200,'built-in case edited');original=await response.json();
- check(original.slug==='project-10' && original.number==='010' && original.revision===1,'built-in identity and number preserved');
+ check(original.slug==='project-10' && original.number==='010' && original.revision===initialRevision+1,'built-in identity and number preserved');
  check((await (await fetch(base+'/work/project-10')).text()).includes('Malepartus — изменён'),'built-in edit shown in detail route');
  check((await (await fetch(base+'/')).text()).includes('Malepartus — изменён'),'built-in edit shown in home');
  check((await request('/api/admin/cases','POST',{...original,revision:0})).status===409,'built-in stale edit rejected');
- let stateCase=builtins.find(x=>x.slug==='project-02');const untouchedStateCase=stateCase;
+ let stateCase=builtins.find(x=>x.slug==='project-09');const untouchedStateCase=stateCase;
  response=await request('/api/admin/cases','PATCH',{id:stateCase.id,revision:stateCase.revision,status:'draft',title:'Ignored form edit'});check(response.status===200,'unmodified built-in hidden with explicit action');stateCase=await response.json();
  check(stateCase.title===untouchedStateCase.title && JSON.stringify(stateCase.media)===JSON.stringify(untouchedStateCase.media) && JSON.stringify(stateCase.sections)===JSON.stringify(untouchedStateCase.sections),'visibility action preserves saved content');
  check((await fetch(base+'/work/'+stateCase.slug)).status===404 && !(await (await fetch(base+'/')).text()).includes(stateCase.slug),'explicit hidden built-in absent from public routes');
@@ -69,7 +70,7 @@ async function main(){
  check((await fetch(base+'/work/project-10')).status===404,'built-in draft does not fall back to original route');
  check(!(await (await fetch(base+'/')).text()).includes('Malepartus — изменён'),'built-in draft hidden from home');
  response=await request('/api/admin/cases','POST',{...original,status:'published',title:'Malepartus'});original=await response.json();
- let placeholder=builtins.find(x=>x.slug==='project-01');
+ let placeholder=builtins.find(x=>x.cover===null);
  response=await request('/api/admin/cases','POST',{...placeholder,description:'Изменённое описание исходной работы.'});
  check(response.status===200 && (await response.json()).cover===null,'original placeholder editable without forced image');
  let form=new FormData();form.set('file',new Blob(['<svg></svg>'],{type:'image/png'}),'bad.png');check((await request('/api/admin/upload','POST',form)).status===400,'false image type rejected');

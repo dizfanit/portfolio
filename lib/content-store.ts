@@ -5,11 +5,14 @@ import { randomUUID } from "node:crypto";
 import { staticWorkItems } from "../data/workItems";
 import { getCaseStudy } from "../data/caseStudies";
 import { adminCategories, type AdminMedia, type CaseInput, type StoredCase } from "../data/adminTypes";
+import publishedCaseSnapshot from "../data/publishedCases.json";
 
 export const contentDirectory = path.resolve(/* turbopackIgnore: true */ process.env.PORTFOLIO_CONTENT_DIR || path.join(process.cwd(), ".portfolio-content"));
 const contentFile = path.join(contentDirectory, "cases.json");
 export class ContentError extends Error { constructor(message: string, public status = 400) { super(message); } }
 const globalStore = globalThis as typeof globalThis & { portfolioWriteQueue?: Promise<unknown> };
+const seededCases = publishedCaseSnapshot.cases as StoredCase[];
+const hiddenBuiltIns = new Map((publishedCaseSnapshot.hiddenBuiltIns as {id:string; status:"draft"; deleted:boolean}[]).map(item => [item.id, item]));
 const builtInCoverDimensions: Record<string, readonly [number, number]> = {
   "/atlanta-stroy-case-cover.png": [1672, 941],
   "/abby-cover.png": [1672, 940],
@@ -29,13 +32,14 @@ function builtInCases(): Promise<StoredCase[]> {
       if (!dimensions) throw new Error(`Missing dimensions for built-in cover: ${src}`);
       cover = { src, width: dimensions[0], height: dimensions[1], kind: "image", title: item.title, alt: item.title };
     }
-    return {
+    const original = {
       id: "builtin:" + item.slug, slug: item.slug, number: item.number, revision: 0,
       title: item.title, type: item.type, year: item.year, industry: item.industry,
       description: item.description, category: item.category, favorite: item.favorite,
       status: "published", singleWork: false, cover, media: study.media, sections: study.sections,
       source: "builtin", mediaLayout: study.mediaLayout, createdAt: "", updatedAt: "",
     } satisfies StoredCase;
+    return { ...original, ...seededCases.find(saved => saved.id === original.id), ...hiddenBuiltIns.get(original.id), source: "builtin" as const };
   }));
 }
 
@@ -51,9 +55,12 @@ export async function readAdminCases(): Promise<StoredCase[]> {
   const [defaults, stored] = await Promise.all([builtInCases(), readCases()]);
   const overrides = new Map(stored.map(item => [item.id, item]));
   const defaultIds = new Set(defaults.map(item => item.id));
+  const seededExtras = seededCases.filter(item => !defaultIds.has(item.id));
+  const seededIds = new Set(seededExtras.map(item => item.id));
   return [
     ...defaults.map(item => ({ ...item, ...overrides.get(item.id), source: "builtin" as const })),
-    ...stored.filter(item => !defaultIds.has(item.id)),
+    ...seededExtras.map(item => ({ ...item, ...overrides.get(item.id) })),
+    ...stored.filter(item => !defaultIds.has(item.id) && !seededIds.has(item.id)),
   ].filter(item => !item.deleted);
 }
 
@@ -93,11 +100,12 @@ function validate(value: unknown, builtin?: StoredCase): CaseInput {
 export async function saveCase(value: unknown) {
   const defaults = await builtInCases();
   const builtin = defaults.find(item => item.id === (value as CaseInput | null)?.id);
-  const input = validate(value, builtin);
+  const baseline = builtin ?? seededCases.find(item => item.id === (value as CaseInput | null)?.id);
+  const input = validate(value, baseline);
   const job = (globalStore.portfolioWriteQueue ?? Promise.resolve()).then(async () => {
     const items = await readCases();
     const stored = input.id ? items.find(item => item.id === input.id) : undefined;
-    const existing = stored ?? builtin;
+    const existing = stored ?? baseline;
     if (input.id && (!existing || existing.deleted)) throw new ContentError("Кейс не найден.", 404);
     if (existing && input.revision !== existing.revision) throw new ContentError("Кейс изменён в другом окне. Обновите страницу и повторите изменения.", 409);
     for (const image of [...(input.cover ? [input.cover] : []), ...input.media]) {
@@ -140,7 +148,7 @@ async function changeCaseState(value: unknown, remove: boolean) {
   const job = (globalStore.portfolioWriteQueue ?? Promise.resolve()).then(async () => {
     const items = await readCases();
     const stored = items.find(item => item.id === input.id);
-    const existing = stored ?? defaults.find(item => item.id === input.id);
+    const existing = stored ?? defaults.find(item => item.id === input.id) ?? seededCases.find(item => item.id === input.id);
     if (!existing || existing.deleted) throw new ContentError("Кейс не найден.", 404);
     if (input.revision !== existing.revision) throw new ContentError("Кейс изменён в другом окне. Обновите страницу и повторите изменения.", 409);
     const record: StoredCase = {
