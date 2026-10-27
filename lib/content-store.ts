@@ -2,7 +2,6 @@ import "server-only";
 import { promises as fs } from "node:fs";
 import path from "node:path";
 import { randomUUID } from "node:crypto";
-import sharp from "sharp";
 import { staticWorkItems } from "../data/workItems";
 import { getCaseStudy } from "../data/caseStudies";
 import { adminCategories, type AdminMedia, type CaseInput, type StoredCase } from "../data/adminTypes";
@@ -11,17 +10,24 @@ export const contentDirectory = path.resolve(/* turbopackIgnore: true */ process
 const contentFile = path.join(contentDirectory, "cases.json");
 export class ContentError extends Error { constructor(message: string, public status = 400) { super(message); } }
 const globalStore = globalThis as typeof globalThis & { portfolioWriteQueue?: Promise<unknown> };
+const builtInCoverDimensions: Record<string, readonly [number, number]> = {
+  "/atlanta-stroy-case-cover.png": [1672, 941],
+  "/abby-cover.png": [1672, 940],
+  "/boondocks-camp-case-cover.png": [1672, 941],
+  "/malepartus-pages/1.png": [2200, 3070],
+};
 
 let builtIns: Promise<StoredCase[]> | undefined;
 function builtInCases(): Promise<StoredCase[]> {
-  // Resolve only known cover dimensions once; the original media stays in public.
+  // Public assets may be served separately from the server function in production.
   return builtIns ??= Promise.all(staticWorkItems.map(async item => {
     const study = getCaseStudy(item.slug)!;
     const src = "cover" in item ? item.cover : undefined;
     let cover: AdminMedia | null = null;
     if (src) {
-      const dimensions = await sharp(path.join(/* turbopackIgnore: true */ process.cwd(), "public", src)).metadata();
-      cover = { src, width: dimensions.width!, height: dimensions.height!, kind: "image", title: item.title, alt: item.title };
+      const dimensions = builtInCoverDimensions[src];
+      if (!dimensions) throw new Error(`Missing dimensions for built-in cover: ${src}`);
+      cover = { src, width: dimensions[0], height: dimensions[1], kind: "image", title: item.title, alt: item.title };
     }
     return {
       id: "builtin:" + item.slug, slug: item.slug, number: item.number, revision: 0,
